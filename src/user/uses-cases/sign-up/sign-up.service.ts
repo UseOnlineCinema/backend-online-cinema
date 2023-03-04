@@ -4,16 +4,16 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { Prisma } from '@prisma/client';
 import { genSaltSync, hash } from 'bcrypt';
 import { UserDto } from 'src/user/dtos/user.dto';
 import * as crypto from 'crypto';
+import { SignUpUserDto } from './dtos/sign-up-user.dto';
 
 @Injectable()
 export class SignUpService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async handle(signUpUserDto: Prisma.UserCreateInput): Promise<UserDto> {
+  async handle(signUpUserDto: SignUpUserDto): Promise<UserDto> {
     if (
       !signUpUserDto.email ||
       !signUpUserDto.username ||
