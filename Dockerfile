@@ -15,4 +15,6 @@ RUN yarn install --frozen-lockfile
 
 COPY --chown=node:node . .
 
+RUN chmod +x ./start-api.sh
+
 USER node
