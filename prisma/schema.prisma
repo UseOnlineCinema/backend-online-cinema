@@ -22,3 +22,11 @@ enum Role {
   USER
   ADMIN
 }
+
+model Movie {
+  id       String @id @default(uuid())
+  name     String
+  synopis  String
+  duration Int
+  cast     String
+}
