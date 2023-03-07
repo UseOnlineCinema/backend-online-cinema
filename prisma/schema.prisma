@@ -26,7 +26,7 @@ enum Role {
 model Movie {
   id       String @id @default(uuid())
   name     String
-  synopis  String
+  synopsis String
   duration Int
   cast     String
 }
