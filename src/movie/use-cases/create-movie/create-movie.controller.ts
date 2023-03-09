@@ -14,9 +14,6 @@ export class CreateMovieController {
   @ApiTags('movie')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, AdminAuthGuard)
-  @ApiHeader({
-    name: 'Authorization',
-  })
   async create(
     @Body() createMovieDto: CreateMovieDto,
     @Request() req,
