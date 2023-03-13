@@ -3,7 +3,7 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
 import { genSaltSync, hash } from 'bcrypt';
 import { UserDto } from 'src/user/dtos/user.dto';
 import * as crypto from 'crypto';
