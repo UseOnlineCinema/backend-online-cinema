@@ -5,13 +5,21 @@ import { ListMovieService } from './use-cases/list-movie/list-movie.service';
 import { ListMovieController } from './use-cases/list-movie/list-movie.controller';
 import { UpdateMovieService } from './use-cases/update-movie/update-movie.service';
 import { UpdateMovieController } from './use-cases/update-movie/update-movie.controller';
+import { DeleteMovieService } from './use-cases/delete-movie/delete-movie.service';
+import { DeleteMovieController } from './use-cases/delete-movie/delete-movie.controller';
 
 @Module({
-  providers: [CreateMovieService, ListMovieService, UpdateMovieService],
+  providers: [
+    CreateMovieService,
+    ListMovieService,
+    UpdateMovieService,
+    DeleteMovieService,
+  ],
   controllers: [
     CreateMovieController,
     ListMovieController,
     UpdateMovieController,
+    DeleteMovieController,
   ],
 })
 export class MovieModule {}
