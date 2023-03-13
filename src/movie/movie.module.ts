@@ -8,7 +8,19 @@ import { UpdateMovieService } from './use-cases/update-movie/update-movie.servic
 import { UpdateMovieController } from './use-cases/update-movie/update-movie.controller';
 
 @Module({
-  providers: [CreateMovieService, PrismaService, ListMovieService, CreateMovieService, PrismaService, UpdateMovieService],
-  controllers: [CreateMovieController, ListMovieController, CreateMovieController, UpdateMovieController],
+  providers: [
+    CreateMovieService,
+    PrismaService,
+    ListMovieService,
+    CreateMovieService,
+    PrismaService,
+    UpdateMovieService,
+  ],
+  controllers: [
+    CreateMovieController,
+    ListMovieController,
+    CreateMovieController,
+    UpdateMovieController,
+  ],
 })
 export class MovieModule {}
