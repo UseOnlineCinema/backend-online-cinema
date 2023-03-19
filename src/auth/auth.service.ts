@@ -18,9 +18,9 @@ export class AuthService {
     });
 
     if (user && (await compare(pass, user.password))) {
-      const { password, ...result } = user;
+      user.password = undefined;
 
-      return result;
+      return user;
     }
 
     return null;
