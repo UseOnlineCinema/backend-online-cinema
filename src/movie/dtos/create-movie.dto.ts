@@ -38,4 +38,14 @@ export class CreateMovieDto {
   @IsNumber()
   @IsNotEmpty()
   duration: number;
+
+  @ApiProperty({
+    description: 'The url of the movie',
+    example:
+      'https://www.youtube.com/watch?v=7G9h-dgmQnY&ab_channel=TheJazzHopCaf%C3%A9',
+    required: true,
+  })
+  @IsString()
+  @IsNotEmpty()
+  url: string;
 }
