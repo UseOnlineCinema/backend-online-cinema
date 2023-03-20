@@ -14,11 +14,7 @@ export class CreateMovieController {
   @ApiTags('movie')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, AdminAuthGuard)
-  async create(
-    @Body() createMovieDto: CreateMovieDto,
-    @Request() req,
-  ): Promise<Movie> {
-    console.log('req.user :>> ', req.user);
+  async create(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
     return this.createMovieService.handle(createMovieDto);
   }
 }

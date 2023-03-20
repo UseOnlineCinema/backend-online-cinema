@@ -9,7 +9,7 @@ export class CreateMovieService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async handle(createMovieDto: CreateMovieDto): Promise<Movie> {
-    const { cast, duration, name, synopsis } = createMovieDto;
+    const { cast, duration, name, synopsis, url } = createMovieDto;
     const movie = await this.prismaService.movie.create({
       data: {
         id: randomUUID(),
@@ -17,6 +17,7 @@ export class CreateMovieService {
         duration,
         name,
         synopsis,
+        url,
       },
     });
 
