@@ -6,8 +6,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AdminAuthGuard } from '@modules/auth/admin-auth.guard';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { DeleteMovieService } from './delete-movie.service';
 
 @Controller('movie')

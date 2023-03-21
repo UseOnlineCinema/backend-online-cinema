@@ -3,9 +3,9 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { genSaltSync, hash } from 'bcrypt';
-import { UserDto } from 'src/user/dtos/user.dto';
+import { UserDto } from '@modules/user/dtos/user.dto';
 import * as crypto from 'crypto';
 import { SignUpUserDto } from './dtos/sign-up-user.dto';
 

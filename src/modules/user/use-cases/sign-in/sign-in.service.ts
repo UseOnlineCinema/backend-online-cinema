@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { SignInUserDto } from './dtos/sign-in-user.dto';
-import { AuthService } from 'src/modules/auth/auth.service';
+import { AuthService } from '@modules/auth/auth.service';
 
 @Injectable()
 export class SignInService {
