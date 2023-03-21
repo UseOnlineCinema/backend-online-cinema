@@ -1,5 +1,5 @@
-export abstract class MovieDataProvider {
-  getMockedMovie() {
+export class MovieDataProvider {
+  static getMockedMovie() {
     return {
       id: '27a7bd1a-c42e-46d9-9b04-f023e0ff34ce',
       name: 'The Matrix',
