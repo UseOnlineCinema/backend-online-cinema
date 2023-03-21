@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Movie } from '@prisma/client';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { MovieFilter } from './filters/movie.filter';
 import { ListMovieService } from './list-movie.service';
 
