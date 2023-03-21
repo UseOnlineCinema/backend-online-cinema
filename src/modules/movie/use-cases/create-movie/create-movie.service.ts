@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Movie } from '@prisma/client';
-import { CreateMovieDto } from 'src/movie/dtos/create-movie.dto';
+import { CreateMovieDto } from 'src/modules/movie/dtos/create-movie.dto';
 import { PrismaService } from 'src/prisma.service';
 import { randomUUID } from 'crypto';
 
