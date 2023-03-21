@@ -1,4 +1,11 @@
-import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  ParseUUIDPipe,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AdminAuthGuard } from 'src/modules/auth/admin-auth.guard';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
@@ -19,7 +26,7 @@ export class UpdateMovieController {
   })
   @UseGuards(JwtAuthGuard, AdminAuthGuard)
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateMovieDto: UpdateMovieDto,
   ) {
     return this.updateMovieService.handle(id, updateMovieDto);
