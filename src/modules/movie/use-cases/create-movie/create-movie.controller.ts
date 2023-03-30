@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Movie } from '@prisma/client';
+import { Movie } from '@modules/movie/database/movie.model';
 import { AdminAuthGuard } from 'src/modules/auth/admin-auth.guard';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { CreateMovieDto } from 'src/modules/movie/dtos/create-movie.dto';
