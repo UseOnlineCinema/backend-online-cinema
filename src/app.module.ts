@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { MovieModule } from './movie/movie.module';
+import { UserModule } from '@modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { MovieModule } from './modules/movie/movie.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
