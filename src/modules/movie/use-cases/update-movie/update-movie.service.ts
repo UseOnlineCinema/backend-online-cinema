@@ -1,28 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Movie } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateMovieDto } from './dtos/update-movie.dto';
+import { UpdateMovieDto } from '../../dtos/update-movie/update-movie.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { Movie } from '@modules/movie/database/movie.model';
 
 @Injectable()
 export class UpdateMovieService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @InjectModel(Movie)
+    private readonly movieModel: typeof Movie,
+  ) {}
 
   async handle(id: string, updateMovieDto: UpdateMovieDto): Promise<Movie> {
-    const foundMovie = await this.prismaService.movie.findFirst({
-      where: {
-        id,
-      },
-    });
+    const foundMovie = await this.movieModel.findByPk(id);
 
     if (!foundMovie) {
       throw new NotFoundException('No movie with that id was found');
     }
 
-    return this.prismaService.movie.update({
-      where: {
-        id,
-      },
-      data: updateMovieDto,
+    const result = this.movieModel.update(updateMovieDto, {
+      where: { id },
+      returning: true,
     });
+
+    return result[1][0];
   }
 }

@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Movie } from '@modules/movie/database/movie.model';
 import { AdminAuthGuard } from 'src/modules/auth/admin-auth.guard';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
-import { CreateMovieDto } from 'src/modules/movie/dtos/create-movie.dto';
+import { CreateMovieDto } from '@modules/movie/dtos/create-movie/create-movie.dto';
 import { CreateMovieService } from './create-movie.service';
 
 @Controller('movie')
