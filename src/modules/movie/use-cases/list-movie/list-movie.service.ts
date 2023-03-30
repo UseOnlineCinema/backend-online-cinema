@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Movie } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { MovieFilter } from './filters/movie.filter';
+import { InjectModel } from '@nestjs/sequelize';
+import { Movie } from '@modules/movie/database/movie.model';
 
 @Injectable()
 export class ListMovieService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @InjectModel(Movie)
+    private readonly movieModel: typeof Movie,
+  ) {}
 
   async handle(filter: MovieFilter): Promise<Movie[]> {
     let filters: { name?: string; cast?: { contains: string } };
@@ -23,15 +26,13 @@ export class ListMovieService {
     }
 
     if (filters?.cast?.contains || filters?.name) {
-      return this.prismaService.movie.findMany({
+      return this.movieModel.findAll({
         where: {
-          OR: {
-            ...filters,
-          },
+          ...filters,
         },
       });
     }
 
-    return this.prismaService.movie.findMany();
+    return this.movieModel.findAll();
   }
 }

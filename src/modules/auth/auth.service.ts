@@ -1,23 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@modules/user/database/user.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly prismaService: PrismaService,
+    @InjectModel(User)
+    private userModel: typeof User,
     private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.prismaService.user.findFirst({
-      where: {
-        email,
-      },
-    });
+    const user = await this.userModel.findOne({ where: { email } });
 
-    if (user && (await compare(pass, user.password))) {
+    if (user && compare(pass, user.password)) {
       user.password = undefined;
 
       return user;

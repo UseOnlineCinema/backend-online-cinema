@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { SignInUserDto } from './dtos/sign-in-user.dto';
+import { SignInUserDto } from '../../dtos/sign-in/sign-in-user.dto';
 import { AuthService } from '@modules/auth/auth.service';
 
 @Injectable()

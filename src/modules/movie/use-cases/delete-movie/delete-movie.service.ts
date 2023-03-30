@@ -1,17 +1,23 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Movie } from '@modules/movie/database/movie.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class DeleteMovieService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @InjectModel(Movie)
+    private readonly movieModel: typeof Movie,
+  ) {}
 
   async delete(id: string) {
-    const movie = await this.prismaService.movie.findFirst({
+    const movie = await this.movieModel.findOne({
       where: { id },
     });
 
     if (!movie) throw new NotFoundException(`Movie: ${id} not found!`);
 
-    return this.prismaService.movie.delete({ where: { id } });
+    return this.movieModel.destroy({
+      where: { id },
+    });
   }
 }

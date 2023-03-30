@@ -3,15 +3,20 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { genSaltSync, hash } from 'bcrypt';
 import { UserDto } from '@modules/user/dtos/user.dto';
 import * as crypto from 'crypto';
-import { SignUpUserDto } from './dtos/sign-up-user.dto';
+import { SignUpUserDto } from '../../dtos/sign-up/sign-up-user.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { User } from '@modules/user/database/user.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class SignUpService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @InjectModel(User)
+    private userModel: typeof User,
+  ) {}
 
   async handle(signUpUserDto: SignUpUserDto): Promise<UserDto> {
     if (
@@ -24,15 +29,11 @@ export class SignUpService {
       );
     }
 
-    const foundUser = await this.prismaService.user.findFirst({
+    const foundUser = await this.userModel.findOne({
       where: {
-        OR: [
-          {
-            email: signUpUserDto.email,
-          },
-          {
-            username: signUpUserDto.username,
-          },
+        [Op.or]: [
+          { email: signUpUserDto.email },
+          { username: signUpUserDto.username },
         ],
       },
     });
@@ -51,9 +52,7 @@ export class SignUpService {
       username: signUpUserDto.username,
     };
 
-    await this.prismaService.user.create({
-      data: user,
-    });
+    await this.userModel.create(user);
 
     return {
       id: user.id,
