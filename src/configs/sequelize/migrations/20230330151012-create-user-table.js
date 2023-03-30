@@ -6,26 +6,46 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
 
     try {
-      await queryInterface.createTable('Users', {
-        id: {
-          type: Sequelize.STRING,
-          primaryKey: true,
-          defaultValue: Sequelize.UUIDV4,
+      await queryInterface.createTable(
+        'Users',
+        {
+          id: {
+            type: Sequelize.STRING,
+            primaryKey: true,
+            defaultValue: Sequelize.UUIDV4,
+          },
+          username: Sequelize.STRING,
+          password: Sequelize.STRING,
+          email: Sequelize.STRING,
+          role: {
+            type: Sequelize.ENUM,
+            values: ['ADMIN', 'USER'],
+          },
+          createdAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+          },
+          updatedAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+          },
+          deletedAt: {
+            type: Sequelize.DATE,
+            allowNull: true,
+          },
         },
-        username: Sequelize.STRING,
-        password: Sequelize.STRING,
-        email: Sequelize.STRING,
-        role: {
-          type: Sequelize.ENUM,
-          values: ['ADMIN', 'USER'],
-        },
-      });
+        { transaction },
+      );
 
-      queryInterface.addConstraint('Users', {
-        fields: ['email'],
-        type: 'unique',
-        name: 'user_email_unique',
-      });
+      queryInterface.addConstraint(
+        'Users',
+        {
+          fields: ['email'],
+          type: 'unique',
+          name: 'user_email_unique',
+        },
+        { transaction },
+      );
 
       await transaction.commit();
     } catch (error) {

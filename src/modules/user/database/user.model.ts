@@ -1,10 +1,13 @@
 import {
   Column,
+  CreatedAt,
   DataType,
+  DeletedAt,
   IsUUID,
   Model,
   PrimaryKey,
   Table,
+  UpdatedAt,
 } from 'sequelize-typescript';
 
 enum UserRole {
@@ -26,8 +29,17 @@ export class User extends Model {
   email: string;
 
   @Column
-  password: boolean;
+  password: string;
 
   @Column(DataType.ENUM)
   role: UserRole[];
+
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
+
+  @DeletedAt
+  deletedAt?: Date;
 }
