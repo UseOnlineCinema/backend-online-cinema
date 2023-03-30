@@ -31,7 +31,7 @@ export class User extends Model {
   @Column
   password: string;
 
-  @Column(DataType.ENUM)
+  @Column({ type: DataType.ENUM, values: Object.values(UserRole) })
   role: UserRole[];
 
   @CreatedAt
