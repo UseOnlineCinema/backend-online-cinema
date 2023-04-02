@@ -1,11 +1,12 @@
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UpdateMovieService } from './update-movie.service';
-import { MovieDataProvider } from 'test/shared/movie';
+import { MovieDataProvider } from '../../../../../test/shared/movie';
+import { Movie } from '../../database/movie.model';
+import { getModelToken } from '@nestjs/sequelize';
 
 describe('UpdateMovieService', () => {
   let service: UpdateMovieService;
-  let prismaService: PrismaService;
+  let movieModel: typeof Movie;
 
   beforeEach(async () => {
     const mockedMovie = MovieDataProvider.getMockedMovie();
@@ -14,18 +15,17 @@ describe('UpdateMovieService', () => {
       providers: [
         UpdateMovieService,
         {
-          provide: PrismaService,
+          provide: getModelToken(Movie),
           useValue: {
-            movie: {
-              findFirst: () => mockedMovie,
-            },
+            findByPk: () => mockedMovie,
+            update: () => [[], ['test']],
           },
         },
       ],
     }).compile();
 
     service = module.get(UpdateMovieService);
-    prismaService = module.get(PrismaService);
+    movieModel = module.get(getModelToken(Movie));
   });
 
   it('should be defined', () => {
@@ -33,9 +33,7 @@ describe('UpdateMovieService', () => {
   });
 
   it('should throw if no movie is found', async () => {
-    jest
-      .spyOn(prismaService.movie, 'findFirst')
-      .mockResolvedValueOnce(undefined);
+    jest.spyOn(movieModel, 'findByPk').mockResolvedValueOnce(undefined);
 
     const promise = service.handle('any_id', { name: 'The Matrix' });
     await expect(promise).rejects.toThrow();

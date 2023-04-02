@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateMovieDto } from '../../dtos/update-movie/update-movie.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Movie } from '@modules/movie/database/movie.model';
+import { Movie } from '../../database/movie.model';
 
 @Injectable()
 export class UpdateMovieService {
@@ -17,7 +17,7 @@ export class UpdateMovieService {
       throw new NotFoundException('No movie with that id was found');
     }
 
-    const result = this.movieModel.update(updateMovieDto, {
+    const result = await this.movieModel.update(updateMovieDto, {
       where: { id },
       returning: true,
     });
