@@ -1,7 +1,7 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UpdateMovieService } from './update-movie.service';
-import { MovieDataProvider } from '../../../../test/shared/movie';
+import { MovieDataProvider } from 'test/shared/movie';
 
 describe('UpdateMovieService', () => {
   let service: UpdateMovieService;
