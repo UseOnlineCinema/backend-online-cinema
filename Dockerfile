@@ -1,20 +1,16 @@
-ARG NODE_VERSION="18"
+ARG NODE_VERSION="18-alpine"
 
-FROM node:${NODE_VERSION} AS development
-
-RUN apt update && \
-  apt install -y wget netcat && \
-  wget -q -O /usr/bin/wait-for https://raw.githubusercontent.com/eficode/wait-for/v2.2.3/wait-for && \
-  chmod +x /usr/bin/wait-for
+FROM node:${NODE_VERSION}
 
 WORKDIR /usr/src/app
 
-COPY --chown=node:node yarn.lock ./
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install --frozen-lockfile
 
-COPY --chown=node:node . .
+COPY . .
 
-RUN chmod +x ./start-api.sh
+RUN yarn build
 
-USER node
+CMD [ "yarn", "start:prod" ]

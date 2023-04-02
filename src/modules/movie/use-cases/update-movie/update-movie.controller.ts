@@ -9,7 +9,7 @@ import {
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AdminAuthGuard } from '@modules/auth/admin-auth.guard';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
-import { UpdateMovieDto } from './dtos/update-movie.dto';
+import { UpdateMovieDto } from '../../dtos/update-movie/update-movie.dto';
 import { UpdateMovieService } from './update-movie.service';
 
 @Controller('movie')

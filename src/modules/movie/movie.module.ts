@@ -7,8 +7,11 @@ import { UpdateMovieService } from './use-cases/update-movie/update-movie.servic
 import { UpdateMovieController } from './use-cases/update-movie/update-movie.controller';
 import { DeleteMovieService } from './use-cases/delete-movie/delete-movie.service';
 import { DeleteMovieController } from './use-cases/delete-movie/delete-movie.controller';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Movie } from './database/movie.model';
 
 @Module({
+  imports: [SequelizeModule.forFeature([Movie])],
   providers: [
     CreateMovieService,
     ListMovieService,
