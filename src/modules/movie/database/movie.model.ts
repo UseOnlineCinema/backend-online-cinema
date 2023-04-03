@@ -1,13 +1,11 @@
-import { Column, Model, Table } from 'sequelize-typescript';
-import { STRING, UUIDV4, INTEGER } from 'sequelize';
+import { Column, IsUUID, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { STRING, INTEGER } from 'sequelize';
 
 @Table
 export class Movie extends Model {
-  @Column({
-    type: STRING,
-    primaryKey: true,
-    defaultValue: UUIDV4,
-  })
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
   id: string;
 
   @Column({

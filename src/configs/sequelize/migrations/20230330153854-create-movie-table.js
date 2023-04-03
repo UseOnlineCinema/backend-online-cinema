@@ -10,9 +10,8 @@ module.exports = {
         'Movies',
         {
           id: {
-            type: Sequelize.STRING,
+            type: Sequelize.UUID,
             primaryKey: true,
-            defaultValue: Sequelize.UUIDV4,
           },
           name: Sequelize.STRING,
           synopsis: Sequelize.STRING,
@@ -39,6 +38,7 @@ module.exports = {
     }
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Movies');
   },
