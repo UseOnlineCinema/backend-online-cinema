@@ -3,6 +3,7 @@ import { UserModule } from '@modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MovieModule } from './modules/movie/movie.module';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { GatewayModule } from './modules/gateway/gateway.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
     UserModule,
     AuthModule,
     MovieModule,
+    GatewayModule,
   ],
   controllers: [],
   providers: [],

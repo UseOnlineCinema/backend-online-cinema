@@ -9,9 +9,11 @@ import { DeleteMovieService } from './use-cases/delete-movie/delete-movie.servic
 import { DeleteMovieController } from './use-cases/delete-movie/delete-movie.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Movie } from './database/movie.model';
+import { GetSignedUrlController } from './use-cases/get-signed-url/get-signed-url.controller';
+import { GatewayModule } from '@modules/gateway/gateway.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Movie])],
+  imports: [SequelizeModule.forFeature([Movie]), GatewayModule],
   providers: [
     CreateMovieService,
     ListMovieService,
@@ -23,6 +25,7 @@ import { Movie } from './database/movie.model';
     ListMovieController,
     UpdateMovieController,
     DeleteMovieController,
+    GetSignedUrlController,
   ],
 })
 export class MovieModule {}
