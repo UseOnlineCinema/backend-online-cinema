@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class UpdateMovieDto {
@@ -46,12 +47,12 @@ export class UpdateMovieDto {
   duration?: number;
 
   @ApiPropertyOptional({
-    description: 'The url of the movie',
-    example: 'https://www.youtube.com/watch?v=2gliGzb2_1I',
+    description: 'fileKey',
+    example: 'f3b0c0a0-0c0a-4b0c-8c0a-0c0a0c0a0c0a',
     required: false,
   })
   @IsOptional()
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
-  url?: string;
+  fileKey?: string;
 }
