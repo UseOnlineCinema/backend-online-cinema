@@ -23,6 +23,8 @@ export class GetSignedUrlGateway implements IGetSignedUrlGateway {
   }): Promise<string> {
     const client = new S3Client({ region });
     const command = new PutObjectCommand({ Bucket: bucket, Key: key });
-    return getSignedUrl(client, command, { expiresIn: 3600 });
+    return getSignedUrl(client, command, {
+      expiresIn: (process.env.EXPIRES_URL_SIGNED as unknown as number) || 3600,
+    });
   }
 }

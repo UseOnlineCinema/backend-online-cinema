@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { genSaltSync, hash } from 'bcrypt';
 import { UserDto } from '@modules/user/dtos/user.dto';
-import * as crypto from 'crypto';
 import { SignUpUserDto } from '../../dtos/sign-up/sign-up-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '@modules/user/database/user.model';
 import { Op } from 'sequelize';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class SignUpService {
@@ -45,14 +45,12 @@ export class SignUpService {
     const salt = genSaltSync(8);
     const hashedPassword = await hash(signUpUserDto.password, salt);
 
-    const user = {
-      id: crypto.randomUUID(),
+    const user = await this.userModel.create({
+      id: randomUUID(),
       password: hashedPassword,
       email: signUpUserDto.email,
       username: signUpUserDto.username,
-    };
-
-    await this.userModel.create(user);
+    });
 
     return {
       id: user.id,

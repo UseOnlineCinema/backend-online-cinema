@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateMovieDto {
   @ApiProperty({
@@ -8,6 +14,7 @@ export class CreateMovieDto {
     required: true,
   })
   @IsString()
+  @MaxLength(255)
   @IsNotEmpty()
   name: string;
 
@@ -17,6 +24,7 @@ export class CreateMovieDto {
     required: true,
   })
   @IsString()
+  @MaxLength(255)
   @IsNotEmpty()
   synopsis: string;
 
@@ -27,6 +35,7 @@ export class CreateMovieDto {
     required: true,
   })
   @IsString()
+  @MaxLength(255)
   @IsNotEmpty()
   cast: string;
 
@@ -38,4 +47,13 @@ export class CreateMovieDto {
   @IsNumber()
   @IsNotEmpty()
   duration: number;
+
+  @ApiProperty({
+    description: "the movie's filekey",
+    example: 'f3b0c0a0-0c0a-4b0c-8c0a-0c0a0c0a0c0a',
+    required: true,
+  })
+  @IsUUID()
+  @IsNotEmpty()
+  fileKey: string;
 }
